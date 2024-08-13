@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
+import json
+
 class FileStorage():
-    __file_path = 'file.json'
-    __objects = {}
+    _file_path = 'file.json'
+    _objects = {}
 
     def all(self):
         ''' Returns the dictionary objects '''
@@ -17,15 +19,8 @@ class FileStorage():
 
         '''
         if obj is not None:
-            key = f'{obj.__class__.__name___}.{obj.id}'
+            key = f'{obj.__class__.__name__}.{obj.id}'
             self.__objects[key] = obj
-
-    @classmethod
-    def create(cls, **kwargs):
-        '''
-        create an instance from a with dictionary of attributes
-        '''
-        return cls(**kwargs)
 
     def save(self):
         ''' Serialize objects to the JSON file '''
@@ -47,7 +42,7 @@ class FileStorage():
                     cls_name = key.split('.')[0]
                     if cls_name in globals():
                         cls = globals()[cls_name]
-                        self.__objects[key] = cls.create(**value)
+                        self.__objects[key] = cls(**value)
 
         except FileNotFoundError:
-            return f'File not Found'
+            print('File not Found')
