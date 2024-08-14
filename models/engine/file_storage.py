@@ -33,18 +33,18 @@ class FileStorage():
         else:
             json_objects = {}
 
-            for key, obj in self._objects.items():
-                json_objects[key] = obj.to_dict()
+        for key, obj in self._objects.items():
+            json_objects[key] = obj.to_dict()
 
-            with open(self._file_path, 'w') as file:
-                json.dump(json_objects, file, indent=4)
+        with open(self._file_path, 'w') as file:
+            json.dump(json_objects, file, indent=4)
 
 
     def reload(self):
         ''' Deserialize the JSON file to __objects only if the JSON file
             exist
         '''
-        try:
+        if os.path.exists(self._file_path):
             with open(self._file_path, 'r') as file:
                 try:
                     json_objects = json.load(file)
@@ -56,6 +56,6 @@ class FileStorage():
                     cls_name = key.split('.')[0]
                     if cls_name in globals():
                         cls = globals()[cls_name]
-                        self.__objects[key] = cls.create(**value)
-        except FileNotFoundError:
-            print('File not found')
+                        self.__objects[key] = cls(**value)
+        else:
+            print('File not Found')
