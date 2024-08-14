@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    {% if title %}
+        <title>Blog - {{ title }}</title>
+    {% else %}
+        <title>Blog Post</title>
+    {% endif%}
+
+</head>
+<body>
+    <header class=nav_bar>
+        <nav>
+            <div class=nav>
+                <a href="#" class="navbar-link">Blog it</a>
+                <a href="#" class="navbar-link">Home</a>
+                <a href="#" class="navbar-link">About</a>
+                <a href="#" class="navbar-link right">Sign in</a>
+                <a href="#" class="navbar-link right">Sign up</a>
+            </div>
+        </nav>
+    </header>
+    <div class=wrapper>
+    <section class=main_content>
+        {% block content %}{% endblock %}
+    <section>
+    <aside class=sidebar>
+    </aside>
+        <header><h2>Our Sidebar</h2></header>
+        <section>
+            <p>You can put any information here</p>
+            <ul>
+                <li>Latest post</li>
+                <li>Anouncement</li>
+                <li>Calender</li>
+                <li>Archive</li>
+            </ul>
+        <section>
+    </div> <!end of main_content>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='login.js'></script>
+    </head>
+
+    <body>
+        <button id="loginButton">Login</button>
+
+        <! Hidden login popup >
+        <div id="overlay" class="overlay"></div>
+        <div id="loginPopup" class="popup"></div>
+
+        <script>
+            document.getElementById('loginButton').addEventListener('click',
+                    function () {
+                    fetch('login.html')
+                        .then(respose => response.text())
+                        .then(data => {
+
+                        }
+            }
+        </script>
+    </body>
+</html>

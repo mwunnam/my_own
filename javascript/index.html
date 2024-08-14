@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My EventListeners</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background: darkblue;
+           }
+         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+         }
+         #container {
+            display: flex;
+            align-items center;
+            justify-content: center;
+            width: 600px;
+         }
+         #content {
+            border: white 2px solid;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            height: 150px;
+            width: 250px;
+         }
+         h2 {
+             margin-bottom: 50px;
+         }
+         .btn1, .btn2, .btn3 {
+            border: solid 1px white;
+            border-radius: 20px;
+            width: 90px;
+            padding: 10px;
+            color: white;
+            font-size: 20px;
+         }
+         h1 {
+margin: 20px;
+         }
+        </style>
+
+    </head>
+    <body>
+        <h1>Event Listeners</h1>
+        <div id="container">
+           <div id="content">
+                <h2>Example 1</h2>
+                <button onclick="alert('JavaScript')" class="btn1">Enter</button>
+            </div>
+            <div id="content">
+                <h2>Example 2</h2>
+                <button class="btn2">Enter</button>
+            </div>
+            <div id="content" class="newbg">
+                <h2>Example 3</h2>
+                <button class="btn3">Enter</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        const btn2 = document.querySelector('.btn2');
+
+        function alertbtn2() {
+            alert('I love JavaScript');
+        }
+        btn2.addEventListener('click', alertbtn2);
+
+        const bg = document.querySelector('.newbg');
+
+        function change_bg() {
+            bg.style.backgroundColor= 'lightblue';
+        }
+        bg.addEventListener('mouseover', change_bg);
+    </script>
+</html>

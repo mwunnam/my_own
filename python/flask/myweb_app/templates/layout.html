@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    {% if title %}
+        <title>Blog - {{ title }}</title>
+    {% else %}
+        <title>Blog Post</title>
+    {% endif%}
+
+</head>
+<body>
+    <header class="header">
+        <div class="logo"></div>
+        <div class="nav">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">About Us</a>
+        </div><!end of nav>
+        <div class="login-signup">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="login">Signup</a>
+        </div><!login-signup>
+    </header>
+    <div class="container">
+        <div class="main_content">
+            {% block content %}{% endblock %}
+        </div><!end of main_content>
+
+        <aside class="sidebar">
+            {% block aside_content %}
+                {% include 'aside.html' %}
+            {% endblock aside_content %}
+        </div><!end of sidebar>
+
+        <footer class="footer">
+            <h1>Footer</h1>
+        </footer><!end of footer>
+
+
+
+    </div><!end of container>
+
+</body>
+</html>

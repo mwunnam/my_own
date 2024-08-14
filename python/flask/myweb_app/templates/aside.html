@@ -1,0 +1,8 @@
+{% block aside_content %}
+    <h3>Aside</h3>
+    {% for post in posts%}
+        <h1>{{ post.title }}</h1>
+        <p>By {{ post.author }} </p>
+    {% endfor %}
+{% endblock aside_content %}
+

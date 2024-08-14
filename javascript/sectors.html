@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My Javascript</title>
+        <style>
+           html, body {
+                padding: 0;
+                margin: 0;
+                display: flex;
+                width: 100%;
+                background: darkblue;
+                align-items: center;
+                justify-content: center;
+                align-items: center;
+           }
+            #container {
+                border: 5px solid white;
+                border-radius: 5px;
+                padding : 20px;
+                text-align: center;
+                color: white;
+            }
+
+            ul {
+                padding: 0;
+                margin: 0;
+            }
+
+            .names {
+                list-style: none;
+                background: #ccc;
+                width: 300px;
+                padding: 0;
+                margin: 0;
+                margin-bottom: 2px;
+                height: 30px;
+                line-height: 2;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="content">
+                <h1>Name of God</h1>
+                <ul>
+                    <li class="names">Almighty</li>
+                    <li class="names">Adonia</li>
+                    <li class="names">El-Shaddaih</li>
+                    <li class="names">Alpha</li>
+                </li>
+            </div>
+        </div>
+    </body>
+    <script>
+       //const container = document.getElementById('container');
+       //container.style.color = 'red';
+       //const items = document.querySelectorAll('.names');
+       //for (i = 0; i < items.length; i++) {
+       //    items[i].style.fontSize = '1rem';
+       //}
+
+        const ul = document.querySelector('ul');
+        const li = document.createElement('li');
+        ul.append(li)
+        li.innerText = 'Okokroko';
+        li.setAttribute('class', 'names');
+        const att = li.getAttribute('class');
+        console.log(att);
+
+    </script>
+</html>

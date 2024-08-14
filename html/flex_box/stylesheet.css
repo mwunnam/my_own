@@ -1,0 +1,28 @@
+body {
+margin : 0px;
+padding : 0px;
+}
+
+div {
+width : 40px;
+height : 40px;
+padding: 10px;
+margin: 5px;
+background: yellow;
+color: black;
+text-align: center;
+}
+
+.container {
+background: gray;
+width: 400px;
+height: 300px;
+display: flex;
+justify-content: space-around;
+align-items: center;
+flex-wrap: wrap-reverse;
+}
+.container div {
+flex: 1;
+      align-self: flex-start;
+}
