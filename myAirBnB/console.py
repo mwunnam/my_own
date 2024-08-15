@@ -67,6 +67,28 @@ class HBNBCommand(cmd.Cmd):
         instance.save()
         print(instance.id)
 
+    def do_show(self, class_name=None, id=None):
+        if not class_name:
+            print('** class name missing **')
+            return
+
+        if id is None:
+            print('** instance id missing **')
+            return
+
+        class_name = class_name.strip()
+        cls = globals().get(class_name, None)
+        if cls is None:
+            print("** class doesn't exit **")
+            return
+
+
+        if id != cls.id:
+            print('** no instance is found **')
+            return
+
+        print(cls.__str__)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
