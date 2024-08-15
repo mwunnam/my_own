@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Console to myAirBnB """
 import cmd
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -46,6 +47,25 @@ class HBNBCommand(cmd.Cmd):
 
             else:
                 print(f'*** No help is avaliable for {line}')
+
+    def do_create(self, line):
+        '''
+        Create an instace of BaseModel and save it to the json file
+        Checking for class name missing and not exiting
+        '''
+        if not line:
+            print('** class name missing ** ')
+            return
+
+        class_name = line.strip()
+        cls = globals().get(class_name, None)
+        if cls is None:
+            print("** calss doesn'n exist **")
+            return
+
+        instance = cls()
+        instance.save()
+        print(instance.id)
 
 
 if __name__ == '__main__':
