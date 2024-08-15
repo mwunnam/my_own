@@ -2,6 +2,7 @@
 """ Console to myAirBnB """
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -67,27 +68,40 @@ class HBNBCommand(cmd.Cmd):
         instance.save()
         print(instance.id)
 
-    def do_show(self, class_name=None, id=None):
-        if not class_name:
+    def do_show(self, line):
+        '''
+        '''
+        if not line:
             print('** class name missing **')
             return
 
-        if id is None:
-            print('** instance id missing **')
-            return
+        else:
+            parts = line.split()
+            if len(parts) < 2:
+                print('** instance id missing **')
+                return
 
-        class_name = class_name.strip()
-        cls = globals().get(class_name, None)
-        if cls is None:
-            print("** class doesn't exit **")
-            return
+            class_name, instance_id = parts[0], parts[1]
+            if class_name is None:
+                print('** Class name missing **')
+                return
 
+            if instance_id is None:
+                print('** instance id missing **')
+                return
 
-        if id != cls.id:
-            print('** no instance is found **')
-            return
+            cls = globals().get(class_name)
+            if cls is None or not issubclass(cls, BaseModel):
+                print("** calss doesn't exist **")
+                return
 
-        print(cls.__str__)
+            instance = storage._objects.get(class_name, {})
+            instance = instance.get(instance_id, None)
+            if instance is None:
+                print('** no instance found **')
+                return
+
+            print(instance)
 
 
 if __name__ == '__main__':
