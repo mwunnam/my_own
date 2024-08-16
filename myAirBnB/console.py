@@ -103,6 +103,48 @@ class HBNBCommand(cmd.Cmd):
 
             print(instance)
 
+    def do_destroy(self, line):
+        if line:
+            parts = line.split()
+            if len(parts) < 2:
+                print('** instance id missing **')
+                return
+
+            class_name, instance_id = parts[0], parts[1]
+            cls = globals().get(class_name)
+            if cls is None:
+                print("** class name does'nt exist **")
+                return
+
+            key = f'{class_name}.{instance_id}'
+            instance = storage._objects.get(key)
+            if instance is None:
+                print("** no instance found **")
+                return
+
+            storage._objects.pop(key)
+            storage.save()
+        else:
+            print('** class name missing **')
+            return
+
+    def do_all(self, line):
+        if line:
+            class_name = line.split()[0]
+            cls = globals().get(class_name)
+
+            if cls is None:
+                print("** class doesn't exist **")
+                return
+
+            result = [str(obj) for key, obj in storage._objects.items() if
+                        key.startswith(f'{class_name}.')]
+
+        else:
+            result = [str(obj) for obj in storage._objects.values()]
+
+        print(result)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
