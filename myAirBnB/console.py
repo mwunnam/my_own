@@ -95,8 +95,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** calss doesn't exist **")
                 return
 
-            instance = storage._objects.get(class_name, {})
-            instance = instance.get(instance_id, None)
+            key = f'{class_name}.{instance_id}'
+            instance = storage._objects.get(key)
             if instance is None:
                 print('** no instance found **')
                 return
