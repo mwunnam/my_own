@@ -94,5 +94,11 @@
         "created_at": "2024-08-16T15:31:28.438063",
         "updated_at": "2024-08-16T15:31:28.438124",
         "__class__": "BaseModel"
+    },
+    "BaseModel.0f4dc2b9-e9e5-4f57-beea-cdb301a76d61": {
+        "id": "0f4dc2b9-e9e5-4f57-beea-cdb301a76d61",
+        "created_at": "2024-08-16T16:03:25.923812",
+        "updated_at": "2024-08-16T16:03:25.923985",
+        "__class__": "BaseModel"
     }
 }
