@@ -118,6 +118,7 @@ class HBNBCommand(cmd.Cmd):
 
             key = f'{class_name}.{instance_id}'
             instance = storage._objects.get(key)
+
             if instance is None:
                 print("** no instance found **")
                 return
