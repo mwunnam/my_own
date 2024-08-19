@@ -122,8 +122,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
                 return
 
-            storage._objects.pop(key)
-            storage.save()
+            storage._objects.pop(instance)
+            storage._objects.save()
         else:
             print('** class name missing **')
             return
