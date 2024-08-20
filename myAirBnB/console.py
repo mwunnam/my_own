@@ -3,7 +3,15 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
 
+
+storage.reload()
 
 class HBNBCommand(cmd.Cmd):
     '''
@@ -145,6 +153,55 @@ class HBNBCommand(cmd.Cmd):
             result = [str(obj) for obj in storage._objects.values()]
 
         print(result)
+
+
+    def do_update(self, line):
+        if line:
+            parts = line.split(" ", 3)
+            if len(parts) < 2:
+                print('** instance id missing **')
+                return
+            if len(parts) < 3:
+                print('** attribute name is missing **')
+                return
+            if len(parts) < 4:
+                print('** attribute value is missing **')
+                return
+
+            class_name, id, attribute_name, attribute_value = parts
+
+            cls = globals().get(class_name)
+            if cls is None:
+                print("** class doesn't exist **")
+                return
+
+            key = f'{class_name}.{id}'
+            instance = storage._objects.get(key)
+            if instance is None:
+                print('** no instance found **')
+                return
+
+            if attribute_name in ['id', 'created_at', 'updated_at']:
+                print('** cannot update these attributes **')
+                return
+
+            value_type = type(getattr(instance, attribute_name, str))
+            if value_type == int:
+                attribute_value = int(attribute_value)
+            elif value_type == float:
+                attribute_value = float(attribute_value)
+            elif value_type == str:
+                attribute_value = attribute_value.strip('"')
+
+
+            setattr(instance, attribute_name, attribute_value)
+
+            storage._objects[key] = instance
+            storage.save()
+
+        else:
+            print("** class name is missing **")
+
 
 
 if __name__ == '__main__':

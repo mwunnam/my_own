@@ -1,6 +1,13 @@
 #!/usr/bin/python3
 import json
 import os
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 class FileStorage():
     _file_path = 'file.json'
@@ -50,6 +57,7 @@ class FileStorage():
                     json_objects = json.load(file)
                 except json.JSONDecodeError:
                     print('Error: Json file not accepted')
+                    return
 
                 for key, value in json_objects.items():
                     cls_name = key.split('.')[0]
@@ -57,4 +65,4 @@ class FileStorage():
                     if cls:
                         self._objects[key] = cls(**value)
         else:
-            pass
+            print('File not found')
