@@ -50,6 +50,7 @@ class FileStorage():
                     json_objects = json.load(file)
                 except json.JSONDecodeError:
                     print('Error: Json file not accepted')
+                    return
 
                 for key, value in json_objects.items():
                     cls_name = key.split('.')[0]
@@ -57,4 +58,4 @@ class FileStorage():
                     if cls:
                         self._objects[key] = cls(**value)
         else:
-            pass
+            print('File not found')

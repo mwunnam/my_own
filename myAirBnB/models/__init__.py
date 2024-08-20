@@ -9,7 +9,8 @@ storage = FileStorage()
 
 '''
 Optionally, specify the file path if needed
-storage.__file_path = 'file.json'
 '''
+storage.__file_path = 'file.json'
+
 ''' Call the reload method to load any existing data from the file '''
 storage.reload()

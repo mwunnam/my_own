@@ -180,14 +180,15 @@ class HBNBCommand(cmd.Cmd):
             value_type = type(getattr(instance, attribute_name, str))
             if value_type == int:
                 attribute_value = int(attribute_value)
-            if value_type == float:
+            elif value_type == float:
                 attribute_value = float(attribute_value)
-            if value_type == str:
+            elif value_type == str:
                 attribute_value = attribute_value.strip('"')
 
 
             setattr(instance, attribute_name, attribute_value)
 
+            storage._objects[key] = instance
             storage.save()
 
         else:
