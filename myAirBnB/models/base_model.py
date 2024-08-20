@@ -3,7 +3,6 @@
 
 import uuid
 from datetime import datetime
-from models import storage
 
 
 class BaseModel:
@@ -17,7 +16,7 @@ class BaseModel:
 
             self.created_at = datetime.strptime(self.created_at,
                                                 '%Y-%m-%dT%H:%M:%S.%f')
-            self.updated_at = datetime.strptime(self.upadated_at,
+            self.updated_at = datetime.strptime(self.updated_at,
                                                 '%Y-%m-%dT%H:%M:%S.%f')
 
         else:
@@ -29,7 +28,9 @@ class BaseModel:
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
 
     def save(self):
+        ''' Update the updated_at attribute and save the object to storage '''
         self.updated_at = datetime.now()
+        from models import storage
         storage.new(self)
         storage.save()
 
