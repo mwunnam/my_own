@@ -1,8 +1,10 @@
 #!/usr/bin/python3
+''' Base Model for myAirBnB'''
 
 import uuid
 from datetime import datetime
 from models import storage
+
 
 class BaseModel:
     facility = "COLANGE"
@@ -13,16 +15,15 @@ class BaseModel:
                 if key != '__class__':
                     setattr(self, key, value)
 
-            self.created_at = datetime.strptime(self.created_at,'%Y-%m-%dT%H:%M:%S.%f')
-            self.updated_at = datetime.strptime(self.upadated_at,'%Y-%m-%dT%H:%M:%S.%f')
+            self.created_at = datetime.strptime(self.created_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime.strptime(self.upadated_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
 
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
             storage.new(self)
-
-
-
 
     def __str__(self):
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
@@ -31,7 +32,6 @@ class BaseModel:
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
-
 
     def to_dict(self):
         dict_copy = self.__dict__.copy()

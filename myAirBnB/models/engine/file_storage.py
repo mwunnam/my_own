@@ -2,6 +2,7 @@
 import json
 import os
 
+
 class FileStorage():
     _file_path = 'file.json'
     _objects = {}
