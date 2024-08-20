@@ -180,5 +180,31 @@
         "created_at": "2024-08-20T11:28:41.931052",
         "updated_at": "2024-08-20T11:28:41.931116",
         "__class__": "BaseModel"
+    },
+    "User.735ab88b-f2fc-4d9a-b305-9668836d7104": {
+        "id": "735ab88b-f2fc-4d9a-b305-9668836d7104",
+        "created_at": "2024-08-20T13:48:33.345067",
+        "updated_at": "2024-08-20T13:48:33.345449",
+        "first_name": "Betty",
+        "last_name": "Bar",
+        "email": "airbnb@mail.com",
+        "password": "root",
+        "__class__": "User"
+    },
+    "User.103ed71d-de2b-47f2-b7cb-bf06b92d55b8": {
+        "id": "103ed71d-de2b-47f2-b7cb-bf06b92d55b8",
+        "created_at": "2024-08-20T13:48:33.349451",
+        "updated_at": "2024-08-20T13:48:33.349489",
+        "first_name": "John",
+        "email": "airbnb2@mail.com",
+        "password": "root",
+        "__class__": "User"
+    },
+    "User.1481e53c-8f5a-45a1-a9e6-2f5632b018f4": {
+        "id": "1481e53c-8f5a-45a1-a9e6-2f5632b018f4",
+        "created_at": "2024-08-20T14:17:18.524054",
+        "updated_at": "2024-08-20T14:17:18.524145",
+        "name": "Michael",
+        "__class__": "User"
     }
 }
