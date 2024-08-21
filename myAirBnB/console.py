@@ -203,6 +203,7 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class name is missing **")
+            return
 
     def all_command(self, class_name):
         '''Handle the <class_name>.all() command.'''
@@ -213,6 +214,7 @@ class HBNBCommand(cmd.Cmd):
             print(results)
         else:
             print("** class doesn't exist **")
+            return
 
     def count_command(self, class_name):
         cls = globals().get(class_name)
@@ -222,6 +224,23 @@ class HBNBCommand(cmd.Cmd):
             print(count)
         else:
             print('** class instance not found **')
+            return
+
+
+    def show_command(self, class_name, instance_id):
+        cls = globals().get(class_name)
+        if cls:
+            key = f'{class_name}.{instance_id}'
+            instance = storage._objects.get(key)
+
+            if instance is None:
+                print('** no instance found **')
+                return
+            else:
+                print(instance)
+        else:
+            print("** class doesn't exist ***")
+            return
 
 
     def default(self, line):
@@ -236,6 +255,11 @@ class HBNBCommand(cmd.Cmd):
 
             elif cmd == 'count()':
                 self.count_command(class_name)
+
+            elif cmd.startswith('show(') and cmd.endswith(')'):
+                instance_id = cmd[len('show('): - 1].strip('"')
+                self.show_command(class_name, instance_id)
+
             else:
                 print(f'*** Unknown syntax: {line}')
         else:
