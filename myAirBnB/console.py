@@ -139,7 +139,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         if line:
-            class_name = line.split()[0]
+            parts = line.split()
+            class_name = parts[0]
+
             cls = globals().get(class_name)
 
             if cls is None:
@@ -147,12 +149,12 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             result = [str(obj) for key, obj in storage._objects.items() if
-                        key.startswith(f'{class_name}.')]
-
+            key.startswith(f'{class_name}.')]
         else:
-            result = [str(obj) for obj in storage._objects.values()]
+            result = [str(obj) for obj in storage.all().values()]
 
         print(result)
+
 
 
     def do_update(self, line):
@@ -201,6 +203,31 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class name is missing **")
+
+    def all_command(self, class_name):
+        '''Handle the <class_name>.all() command.'''
+        cls = globals().get(class_name)
+        if cls:
+            results = [str(obj) for key, obj in storage._objects.items() if
+                        key.startswith(f'{class_name}.')]
+            print(results)
+        else:
+            print("** class doesn't exist **")
+
+
+    def default(self, line):
+        '''Handling custom / unrecorgnized commands.'''
+        if '.' in line:
+            parts = line.split('.')
+            class_name = parts[0]
+            cmd = parts[1]
+
+            if cmd == 'all()':
+                self.all_command(class_name)
+            else:
+                print(f'*** Unknown syntax: {line}')
+        else:
+            print(f'*** Unknown syntax: {line}')
 
 
 
