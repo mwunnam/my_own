@@ -214,6 +214,15 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    def count_command(self, class_name):
+        cls = globals().get(class_name)
+        if cls:
+            count = sum(1 for obj in storage._objects.values() if
+                    isinstance(obj, cls))
+            print(count)
+        else:
+            print('** class instance not found **')
+
 
     def default(self, line):
         '''Handling custom / unrecorgnized commands.'''
@@ -224,6 +233,9 @@ class HBNBCommand(cmd.Cmd):
 
             if cmd == 'all()':
                 self.all_command(class_name)
+
+            elif cmd == 'count()':
+                self.count_command(class_name)
             else:
                 print(f'*** Unknown syntax: {line}')
         else:
