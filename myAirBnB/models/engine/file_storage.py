@@ -29,8 +29,8 @@ class FileStorage():
             key = f'{obj.__class__.__name__}.{obj.id}'
             self._objects[key] = obj
 
-    def save(self):
-        ''' Serialize objects to the JSON file '''
+    def save_all(self):
+        """ Serialize objects to the JSON file """
         if os.path.exists(self._file_path):
             with open(self._file_path, 'r') as file:
                 try:
@@ -39,6 +39,16 @@ class FileStorage():
                     json_objects = {}
         else:
             json_objects = {}
+
+        for key, obj in self._objects.items():
+            json_objects[key] = obj.to_dict()
+
+        with open(self._file_path, 'w') as file:
+            json.dump(json_objects, file, indent=4)
+
+
+    def save(self):
+        json_objects ={}
 
         for key, obj in self._objects.items():
             json_objects[key] = obj.to_dict()

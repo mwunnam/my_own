@@ -131,8 +131,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
                 return
 
-            storage._objects.pop(instance)
-            storage._objects.save()
+            storage._objects.pop(key)
+            storage.save()
         else:
             print('** class name missing **')
             return
@@ -151,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
             result = [str(obj) for key, obj in storage._objects.items() if
             key.startswith(f'{class_name}.')]
         else:
-            result = [str(obj) for obj in storage.all().values()]
+            result = [str(obj) for obj in storage._objects.values()]
 
         print(result)
 
@@ -243,6 +243,22 @@ class HBNBCommand(cmd.Cmd):
             return
 
 
+    def destroy_command(self, class_name, instance_id):
+        cls = globals().get(class_name)
+        if cls:
+            key = f'{class_name}.{instance_id}'
+            instance = storage._objects.get(key)
+            if instance:
+                storage._objects.pop(key)
+                storage.save()
+            else:
+                print('** instance not found **')
+                return
+        else:
+            print("** class doesn't exist **")
+            return
+
+
     def default(self, line):
         '''Handling custom / unrecorgnized commands.'''
         if '.' in line:
@@ -259,6 +275,10 @@ class HBNBCommand(cmd.Cmd):
             elif cmd.startswith('show(') and cmd.endswith(')'):
                 instance_id = cmd[len('show('): - 1].strip('"')
                 self.show_command(class_name, instance_id)
+
+            elif cmd.startswith('destroy(') and cmd.endswith(')'):
+                instance_id = cmd[len('destroy('): - 1].strip('"')
+                self.destroy_command(class_name, instance_id)
 
             else:
                 print(f'*** Unknown syntax: {line}')
