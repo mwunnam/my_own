@@ -60,8 +60,8 @@ class BaseModel:
 def print_header():
     print('Welcome to Tic_Tac_ Toe\n')
 
-def ai_move(board, user)
-    possible_moves = [i for i, cell in enumerate(board.cells) if cells == ' ']
+def ai_move(board, user):
+    possible_moves = [i for i, cell in enumerate(board.cells) if cell == ' ']
     move = random.choice(possible_moves)
     board.b_update(move, user)
 
@@ -70,74 +70,71 @@ def refresh_board():
     print_header()
     board.b_display()
 
-def play_again(option):
-        if option == 'Y':
-            board.b_clear()
-            refresh_board()
-        elif option == 'N':
-            return
+def play_again():
+    option = input('Press Y to play again or N to quit: ')
+    return option.upper() == 'Y'
 
 def game_loop(player_1, player_2):
-    current_player = player_1
-    refresh_board()
-
     while True:
-        '''Get Player_1's input'''
+        current_player = player_1
+        player_symbol = 'X'
+        board.b_clear()
+        refresh_board()
 
-        if current_player == player_1:
-            x_choice = int(input(f"{player_1} pick your choice (0-8):>> "))
-            while not board.b_update(x_choice, 'X'):
-                print('cell taken choice under number')
-                x_choice = int(input("pick a choice (0-8):>> "))
+        while True:
+            '''Get Player_1's input'''
 
-            refresh_board()
+            if current_player != 'AI':
+                try:
+                    choice = int(input(f"{current_player} pick your choice (0-8):>> "))
+                    while not board.b_update(choice, player_symbol):
+                        print('cell taken choice under number')
+                        choice = int(input("pick a choice (0-8):>> "))
 
-        else:
-            if player_2:
-                o_choice = int(input(f"{player_2} pick a choice (0-8):>> "))
-                while not board.b_update(o_choice, 'O'):
-                    print('cell taken choice under number')
-                    o_choice = int(input("pick a choice from (0-8):>> "))
+                except ValueError:
+                    print('Enter a valid number (0-8).')
+                except IndexError:
+
+                    print('Enter a number within the range (0-8).')
             else:
-                if player_2 is None:
-                    player_2 = 'AI'
-                    print('{play_2} pick your choice (0-8):>> ')
-                    ai_move(board, '0')
-
+                print('{play_2} pick your choice (0-8):>> ')
+                ai_move(board, '0')
 
             refresh_board()
 
             winner = board.win_checker()
             if winner:
-                print(f'{winner} wins!')
+                winner_name = player_1 if winner == 'X' else player_2
+                print(f'{winner_name} wins!')
                 option = input('Press Y to play again or N to quit>> ')
-                play_again(option)
+                if not play_again():
+                    break
+                else:
+                    board.b_clear()
 
             if board.tie_checker():
                 print("It's a tie")
                 option = input('Press Y to play again or N to quit>>  ')
-                play_again(option)
+                if not play_again():
+                    break
+                else:
+                    board.b_clear()
 
 
-        if current_player == player_1:
-            current_player = player_2
-        else:
-            current_player == player_2
 
-        '''
-        except ValueError:
-            print('Enter a valid number (0-8).')
-        except IndexError:
-            print('Enter a number within the range (0-8).')
-        '''
-
+            if current_player == player_1:
+                current_player = player_2
+                player_symbol = 'O'
+            else:
+                current_player == player_2
+                player_symbol = 'X'
 
 
 board = BaseModel()
 print_header()
 print('Choose Game Mode:')
-print('1. Player vs Player:')
-print('2. Player vs AI:')
+print('1. Player vs Player')
+print('2. Player vs AI')
 mode = input('Enter 1 or 2: ')
 
 if mode == '1':
